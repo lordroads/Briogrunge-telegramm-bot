@@ -3,6 +3,7 @@ import logging
 from configs.config import settings
 from aiogram.utils import executor
 from bot.init import dispatcher
+from handlers import client
 
 
 logging.basicConfig(
@@ -12,6 +13,8 @@ logging.basicConfig(
     datefmt='%H:%M:%S'
     )
 logger = logging.getLogger(__name__)
+
+client.register_handlers_client(dispatcher)
 
 
 async def on_startup(_):
