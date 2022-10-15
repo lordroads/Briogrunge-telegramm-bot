@@ -2,12 +2,12 @@ from configs.config import settings
 from aiogram import Bot, Dispatcher
 import logging
 
-bot = Bot(token=settings.token)
+bot = Bot(token=settings.TOKEN)
 dispatcher = Dispatcher(bot)
 
-logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
 
 
-def start():
-    logger.debug(f'Token is - {settings.token} admin is - {settings.admin_id}')
+def checking_properties():
+    logger.debug(f'Token is - {settings.TOKEN is not None} admin is - {settings.ADMIN_ID is not None}')

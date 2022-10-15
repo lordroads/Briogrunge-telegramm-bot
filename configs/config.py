@@ -2,8 +2,9 @@ from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
-    token: str
-    admin_id: str
+    TOKEN: str
+    ADMIN_ID: str
+    LOGGER_LEVEL: str
 
     class Config:
         case_sensitive = False
