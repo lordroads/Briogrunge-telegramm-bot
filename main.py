@@ -3,7 +3,7 @@ import logging
 from configs.config import settings
 from aiogram.utils import executor
 from bot.init import dispatcher
-from handlers import client
+from handlers import client, admin, common
 
 
 logging.basicConfig(
@@ -15,6 +15,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 client.register_handlers_client(dispatcher)
+common.register_handlers_common(dispatcher)
 
 
 async def on_startup(_):

@@ -24,10 +24,15 @@ def get_answer_by_question(question: str) -> str:
     return cursore.fetchone()[2]
 
 
-def get_answer_by_id(question_id: int) -> str:
+def get_answer_by_id(question_id: int) -> tuple:
     cursore.execute("SELECT * FROM questions WHERE id = :find_question", {"find_question": question_id})
     find_entity = cursore.fetchone()
     return find_entity[2]
+
+
+def get_question_by_id(question_id: int) -> tuple:
+    cursore.execute("SELECT * FROM questions WHERE id = :find_question", {"find_question": question_id})
+    return cursore.fetchone()
 
 
 def update_question(question: str, answer: str, question_id: int):
