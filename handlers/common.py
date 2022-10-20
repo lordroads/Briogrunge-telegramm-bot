@@ -3,21 +3,19 @@ from aiogram.types import ReplyKeyboardRemove
 from bot.init import bot
 from database import users
 from models.user import User
-from keyboards import client_kb
+from keyboards import client_kb, admin_kb, common_kb
 
 
 async def command_start(message: types.Message):
     await message.delete()
-    # Проверить есть ли юзер
     find_user = users.get_user_by_id(message.from_user.id)
 
     if find_user:
         user = User(find_user)
-        # Проверить админ ли юзер
         if user.is_admin:
             await bot.send_message(message.from_user.id,
                                    'Ты есть в базе и ты админ.',
-                                   reply_markup=ReplyKeyboardRemove())
+                                   reply_markup=admin_kb.get_markup_admin_menu())
         else:
             await bot.send_message(message.from_user.id,
                                    f'Доброго времени суток, {user.first_name}, чем могу помочь?',
@@ -26,6 +24,7 @@ async def command_start(message: types.Message):
         await bot.send_message(message.from_user.id,
                                'Привет, что Вас интересует?',
                                reply_markup=client_kb.get_markup_client_menu())
+        # TODO: сделать инлайн с вопросом об рассылке ивентов.
         users.add_user(message.from_user.id,
                        message.from_user.is_bot,
                        False,
@@ -45,10 +44,6 @@ async def leave_chat(chat_member: types.ChatMemberUpdated):
         user = User(find_user)
         if not bool(user.is_admin) and chat_member.new_chat_member.status == 'kicked':
             users.delete_user(user.user_id)
-
-            print(f'[EVENT old] - USER=user.id {chat_member.old_chat_member}\n\n')
-            print(f'[EVENT new] - USER=user.id {chat_member.new_chat_member}\n\n')
-            print(f'[USER id] - USER=user.id {chat_member.from_user.id}\n\n')
 
 
 def register_handlers_common(dp: Dispatcher):

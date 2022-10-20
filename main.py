@@ -15,6 +15,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 client.register_handlers_client(dispatcher)
+admin.register_handlers_admin(dispatcher)
 common.register_handlers_common(dispatcher)
 
 

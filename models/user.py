@@ -34,11 +34,5 @@ class User:
             self.username = username
             self.language_code = language_code
 
-    def get_tuple(self) -> tuple:
-        return (self.user_id, self.is_bot, self.is_admin, self.first_name, self.last_name, self.username, self.language_code)
-
-    def get_tuple_for_update(self) -> tuple:
-        return (self.is_bot, self.is_admin, self.first_name, self.last_name, self.username, self.language_code, self.user_id)
-
     def get_info(self) -> str:
         return f'{self.user_id}, {self.is_bot}, {self.is_admin}, {self.first_name}, {self.last_name}, {self.username}, {self.language_code}'
