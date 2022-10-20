@@ -11,9 +11,10 @@ def get_markup_admin_menu() -> ReplyKeyboardMarkup:
     b4 = KeyboardButton('Удалить вопрос')
     b5 = KeyboardButton('Редактировать вопрос')
     b6 = KeyboardButton('Отмена')
+    b7 = KeyboardButton('Редактировать пользователя')
 
     kb_admin = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
 
-    kb_admin.add(b1).add(b2).row(b3, b4, b5, b6)
+    kb_admin.add(b1).add(b2).row(b3, b4, b5, b6).row(b7)
 
     return kb_admin

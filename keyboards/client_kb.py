@@ -10,7 +10,7 @@ def get_markup_client_menu() -> ReplyKeyboardMarkup:
     b1 = KeyboardButton('Вопросы')
     b2 = KeyboardButton('Вывоз_вещей')
 
-    kb_client = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
+    kb_client = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=False)
 
     kb_client.add(b1).add(b2)
 

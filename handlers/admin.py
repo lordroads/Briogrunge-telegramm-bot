@@ -3,6 +3,7 @@ from bot.init import bot
 from aiogram.dispatcher.filters import Text
 from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
+from database import questions
 
 
 class FSMAddQuestion(StatesGroup):
@@ -36,9 +37,8 @@ async def add_answer(message: types.Message, state: FSMContext):
 async def finish_question(message: types.Message, state: FSMContext):
     async with state.proxy() as data:
         data['answer'] = message.text
-
-    async with state.proxy() as data:
-        await bot.send_message(message.from_user.id, f'Добавили в базу:\n\n{str(data)}')
+        questions.add_question(data["question"], data["answer"])
+        await bot.send_message(message.from_user.id, f'Добавили в базу:\n\nВопрос:\n{data["question"]}\nОтвет:\n{data["answer"]}')
 
     await state.finish()
 
