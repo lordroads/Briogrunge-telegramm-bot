@@ -1,5 +1,5 @@
 from aiogram import types, Dispatcher
-from aiogram.types import ReplyKeyboardRemove, CallbackQuery
+from aiogram.types import CallbackQuery
 from aiogram.dispatcher.filters import Text
 from bot.init import bot
 from keyboards import client_kb
@@ -9,7 +9,7 @@ from database import questions
 async def get_questions(message: types.Message):
     await bot.send_message(message.from_user.id,
                            'Часто задаваемые вопросы:',
-                           reply_markup=client_kb.get_inline_questions_keyboard())
+                           reply_markup=client_kb.get_inline_questions_keyboard("get_answer"))
     await message.delete()
 
 

@@ -1,5 +1,5 @@
 from aiogram import types, Dispatcher
-from aiogram.types import ReplyKeyboardRemove
+from aiogram.types import CallbackQuery
 from bot.init import bot
 from database import users
 from models.user import User
@@ -38,6 +38,12 @@ async def clear_history(message: types.Message):
     await message.delete()
 
 
+async def all_callbacks(callback_query: CallbackQuery):
+    await callback_query.message.delete()
+    await bot.answer_callback_query(callback_query.id)
+    await bot.send_message(callback_query.from_user.id, f'Усп! попробуйте еще раз...')
+
+
 async def leave_chat(chat_member: types.ChatMemberUpdated):
     find_user = users.get_user_by_id(chat_member.from_user.id)
     if find_user:
@@ -47,6 +53,7 @@ async def leave_chat(chat_member: types.ChatMemberUpdated):
 
 
 def register_handlers_common(dp: Dispatcher):
+    dp.register_callback_query_handler(all_callbacks)
     dp.register_message_handler(command_start, commands=['start', 'menu'])
     dp.register_message_handler(clear_history)
     dp.register_my_chat_member_handler(leave_chat)
